@@ -1,0 +1,114 @@
+🔹 STEP : Load Data into Power BI
+Open Power BI Desktop
+
+Click “Get Data” > Excel / CSV / SQL / Web depending on your source
+
+Import your prepared financial data sheets
+
+Click Transform Data to open Power Query
+
+🔹 STEP : Clean and Transform Data
+In Power Query Editor:
+
+Rename columns meaningfully
+
+Format data types (e.g., Date columns, Currency for Amount)
+
+Split columns if needed (e.g., Year from Date)
+
+Remove null/empty rows
+
+Create new calculated columns (like Net Profit = Revenue - Expenses)
+
+Then click Close & Apply
+
+🔹 STEP : Create Data Model & Relationships
+Go to Model View (left side tab)
+
+Define relationships between:
+
+Time Table ↔ Income Statement
+
+Time Table ↔ Balance Sheet
+
+Department/Account Type tables if any
+
+Use Date Table (create one if needed: “Modeling > New Table”)
+
+DAX
+
+DateTable = CALENDAR(DATE(2020,1,1), DATE(2025,12,31))
+🔹 STEP : Create Financial KPIs with DAX
+In “Modeling” tab, create measures like:
+
+DAX
+
+Total Revenue = SUM('Income Statement'[Revenue])
+Net Profit = SUM('Income Statement'[Net Income])
+Gross Margin % = DIVIDE([Gross Profit], [Revenue])
+Current Ratio = DIVIDE(SUM('Balance Sheet'[Current Assets]), SUM('Balance Sheet'[Current Liabilities]))
+🔹 STEP : Design the Dashboard Pages
+✅ 1. Executive Overview
+KPI Cards: Revenue, Net Profit, Cash Flow, Current Ratio
+
+Line Chart: Revenue vs Profit trend
+
+Slicers: Date, Department
+
+✅ 2. Income Statement Analysis
+Line/Bar chart for Revenue, COGS, Profit over time
+
+Pie chart for Expense Category
+
+✅ 3. Balance Sheet
+Donut Chart for Asset composition
+
+Bar chart for Liabilities vs Equity
+
+Gauge: Current Ratio or Quick Ratio
+
+✅ 4. Cash Flow Dashboard
+Area Chart: Monthly Cash Flow
+
+Stacked Column: Operating, Investing, Financing flows
+
+KPI: Cash on Hand, Runway
+
+✅ 5. Budget vs Actual
+Clustered Bar: Actual vs Forecast Revenue/Expense
+
+Table: Variance and % difference
+
+🔹 STEP : Add Forecasting and Analytics
+Click on your line chart (e.g., Net Profit Trend)
+
+Go to Analytics Pane > Forecast
+
+Enable Forecast, set time period and confidence level
+
+You can also use DAX for basic linear projections.
+
+🔹 STEP : Add Interactivity and Navigation
+Use Slicers: Month, Year, Department, Region
+
+Add Drill-through pages: From high-level KPIs to specific accounts or departments
+
+Use Bookmarks and Buttons for navigation
+
+🔹 STEP : Polish the Dashboard
+Use consistent color themes (green for profit, red for loss)
+
+Name all visuals and pages clearly
+
+Hide unused fields in field pane
+
+Add tooltips for charts to show extra info
+
+Check layout responsiveness
+
+🔹 STEP : Save & Publish
+Save as .pbix
+
+Publish to Power BI Service → Share via web/app
+
+Schedule data refresh (if using cloud source or API)
