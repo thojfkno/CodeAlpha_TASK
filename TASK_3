@@ -1,0 +1,117 @@
+Step-by-Step Procedure
+🔹 STEP 1: Prepare Your Dataset
+You need data from various real estate sources (Excel, CSV, database, API). Suggested tables:
+
+🗂️ 1. Property Listings Data
+| PropertyID | City | State | Price | PropertyType | Size (sqft) | DateListed | Status (Available/Sold) |
+
+🗂️ 2. Rental Data
+| PropertyID | MonthlyRent | OccupancyStatus | RentalYield | Area |
+
+🗂️ 3. Market Demand/Supply
+| Region | Month | NewListings | SoldListings | AvgDaysOnMarket |
+
+🗂️ 4. Economic Indicators
+| Date | Region | InterestRate | InflationRate | EmploymentRate |
+
+🗂️ 5. Geographic Reference
+| Region | Latitude | Longitude |
+
+🔹 STEP 2: Import Data into Power BI
+Open Power BI Desktop
+
+Use “Get Data > Excel/CSV/SQL/Web”
+
+Import all datasets
+
+Click Transform Data:
+
+Clean column names
+
+Convert data types (Date, Currency, Number)
+
+Remove nulls
+
+Normalize regions/cities
+
+🔹 STEP 3: Create Relationships in Model View
+Region field → join across different datasets
+
+Create a Date Table (for time series and forecasting)
+
+DAX
+Copy
+Edit
+DateTable = CALENDAR(DATE(2018,1,1), DATE(2025,12,31))
+🔹 STEP 4: Create DAX Measures
+✅ Property & Rental Metrics
+DAX
+Copy
+Edit
+Avg Property Price = AVERAGE('Properties'[Price])
+Avg Rental Yield = AVERAGE('Rental'[RentalYield])
+Avg Rent = AVERAGE('Rental'[MonthlyRent])
+✅ Market Demand & Supply
+DAX
+Copy
+Edit
+Demand Index = SUM('Market'[SoldListings])
+Supply Index = SUM('Market'[NewListings])
+Inventory Turnover = DIVIDE([Demand Index], [Supply Index])
+✅ Economic Trends
+DAX
+Copy
+Edit
+Avg Interest Rate = AVERAGE('Economy'[InterestRate])
+🔹 STEP 5: Build the Dashboard
+🟦 Page 1: Price & Rental Overview
+KPI Cards: Avg Price, Avg Rent, Avg Rental Yield
+
+Line Chart: Price Trend Over Time
+
+Clustered Column: Property Type vs Price
+
+🟨 Page 2: Market Dynamics
+Column Chart: Demand vs Supply (Monthly)
+
+Line Chart: Avg Days on Market
+
+KPI: Inventory Turnover Rate
+
+🟩 Page 3: Economic Indicators
+Line Chart: Interest Rate, Inflation, Employment Rate
+
+Bar Chart: Region-wise Comparison
+
+🟪 Page 4: Geo Visualizations
+Map Visual: Prices by Region (color-coded)
+
+Heat Map: Hotspots with high yield or price growth
+
+Tooltips: Show Avg Rent, Avg Price, Region info
+
+🔹 STEP 6: Add Interactivity
+Slicers: City, Property Type, Date, Price Range
+
+Drill-through: From Region to Property Listings
+
+Use Bookmarks for region-wise investment portfolios
+
+🔹 STEP 7: Apply Forecasting
+Use Power BI’s built-in forecasting feature:
+
+Forecast price trends
+
+Forecast rental demand
+
+Alternatively, use R/Python script for ARIMA or Exponential Smoothing
+
+🔹 STEP 8: Final Polish and Publish
+Use consistent color theme (e.g., green for growth, red for decline)
+
+Add branding/logo
+
+Save as .pbix
+
+Publish to Power BI Service
+
