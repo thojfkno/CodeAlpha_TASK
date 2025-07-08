@@ -1,0 +1,117 @@
+Step-by-Step Procedure
+🔹 STEP 1: Prepare Your Dataset
+You need data in structured format such as Excel, CSV, SQL Server, etc.
+Recommended data tables:
+
+🗂️ 1. Employee Master Table
+EmployeeID	Name	Department	DateOfJoining	Status (Active/Left)	Gender	Age	JobLevel
+
+🗂️ 2. Recruitment Data
+| CandidateID | JobTitle | ApplicationDate | InterviewDate | OfferDate | HiredDate | Status (Hired/Rejected) |
+
+🗂️ 3. Exit Survey or Turnover Data
+| EmployeeID | ExitDate | ExitReason | Tenure (Months) | Department |
+
+🗂️ 4. Employee Satisfaction
+| EmployeeID | SurveyDate | SatisfactionScore (1–5) | Comments |
+
+🗂️ 5. Performance Ratings
+| EmployeeID | Year | Rating (1–5) |
+
+🔹 STEP 2: Import Data to Power BI
+Open Power BI Desktop
+
+Click Home > Get Data > Excel/CSV
+
+Import all relevant tables
+
+Click Transform Data to clean:
+
+Ensure date types are correct
+
+Remove nulls
+
+Standardize department names
+
+🔹 STEP 3: Create Relationships in Model View
+EmployeeID → link across tables
+
+Date fields → use a Date Table (recommended for forecasting)
+
+DAX
+Copy
+Edit
+DateTable = CALENDAR(MIN(Employee[DateOfJoining]), MAX(Employee[ExitDate]))
+🔹 STEP 4: Create DAX Measures
+✅ Recruitment Metrics
+DAX
+Copy
+Edit
+Total Applications = COUNT('Recruitment'[CandidateID])
+Hires = CALCULATE(COUNT('Recruitment'[CandidateID]), 'Recruitment'[Status] = "Hired")
+Hire Rate % = DIVIDE([Hires], [Total Applications])
+✅ Turnover Metrics
+DAX
+Copy
+Edit
+Leavers = CALCULATE(COUNT('Employee'[EmployeeID]), 'Employee'[Status] = "Left")
+Turnover Rate % = DIVIDE([Leavers], COUNT('Employee'[EmployeeID]))
+✅ Satisfaction & Performance
+DAX
+Copy
+Edit
+Avg Satisfaction Score = AVERAGE('Satisfaction'[SatisfactionScore])
+Avg Performance Rating = AVERAGE('Performance'[Rating])
+🔹 STEP 5: Build the Dashboard
+🟦 Page 1: Executive Summary
+KPI Cards: Headcount, Turnover %, Avg Satisfaction, Avg Rating
+
+Line Chart: Headcount Trend
+
+Bar Chart: Employees by Department
+
+🟨 Page 2: Recruitment Funnel
+Funnel Chart: Applicants → Interviewed → Hired
+
+Line Chart: Hires over Time
+
+KPI: Hire Rate %
+
+🟥 Page 3: Turnover Insights
+Column Chart: Turnover by Department
+
+Pie Chart: Exit Reasons
+
+Histogram: Tenure of Exited Employees
+
+🟩 Page 4: Employee Satisfaction
+Slicer: Department
+
+Line Chart: Satisfaction over Time
+
+Donut Chart: Satisfaction Score Distribution
+
+🟪 Page 5: Performance & Forecasting
+Bar Chart: Ratings Distribution
+
+Forecast Chart: Predicted Hiring Needs
+
+What-if Parameter: Expected Attrition
+
+🔹 STEP 6: Add Interactivity
+Use slicers for Department, Year, Gender, Job Level
+
+Enable tooltips to show extra info on hover
+
+Add drill-through pages from KPIs to individual-level details
+
+🔹 STEP 7: Polish & Publish
+Apply a consistent theme
+
+Rename all visuals
+
+Save as .pbix
+
+Publish to Power BI Service and share with HR team
+
+Optionally, use Power BI Gateway for data refresh
